@@ -1,0 +1,80 @@
+/*criando o banco*/
+	CREATE DATABASE Banco
+
+/*usando o banco*/
+	use Banco;
+
+/*Criando tabelas */
+	create table Bancos ( 
+		Cod_banco int not null,
+ 		Nome_banco varchar(40) not null,
+ 		primary key(Cod_banco));
+
+	create table Agencia(
+		Num_agencia int not null,
+		Endereco_agen int not null,
+		Nome_agencias varchar(40) not null,
+		Cod_banco int not null REFERENCES Bancos(Cod_banco),
+		primary key(Num_agencia));
+
+	
+
+	create table Conta(
+		Num_conta int not null,
+		Num_agencia int not null REFERENCES Agencia(Num_agencia),
+		Tip_conta varchar(40) int not null,
+		Saldo numeric(10,2) not null,
+		primary key(Num_conta));
+	
+
+	create table CliPossui(
+		Cpf  varchar(11)  not null unique REFERENCES Cliente(Cpf),
+		Num_conta int not null REFERENCES Conta(Num_conta),
+		Data_inicio date);
+	
+
+	create table Cliente(
+		Nome varchar(40) not null,
+		Cpf  varchar(11)  not null unique,
+		Genero varchar(8) not null,
+		Telefone_residencial, int not null unique,
+		Telefone_celular int not null unique,
+		Nome_rua varchar(255) not null,
+		Cep numeric (8) unique not null,
+		Num_casa numeric(5) not null,
+
+/*Cliente*/		
+	insert into Cliete(Nome, Cpf, Genero, Telefone_residencial,Telefone_celular, nome_rua, Num_casa, Cep) values
+		( 'Rafael', '50127695893',Masculino,'58333241','965358457','Antonio dionizio','243','04939090');
+
+	insert into Cliete(Nome, Cpf, Genero, Telefone_residencial,Telefone_celular, nome_rua, Num_casa, Cep) values
+		( 'Lucas', '50127695894',Masculino,'58333235','965358447','Antonio souza','143','04939047');
+
+	insert into Cliete(Nome, Cpf, Genero, Telefone_residencial,Telefone_celular, nome_rua, Num_casa, Cep) values
+		( 'Monique', '50127695417',Feminino,'58331425','965353517','Marques dionizio','275','02579090');
+
+/*Banco*/
+	insert into Banco(Cod_banco, Nome_banco) values('1', 'Bradesco');
+
+	insert into Banco(Cod_banco, Nome_banco) values('2', 'NuBank');
+
+	insert into Banco(Cod_banco, Nome_banco) values('3', 'Itau'); 
+/*Agencia*/
+	insert into Agencia(Num_agencia,Endereco_agen,Nome_agencias,Cod_banco) values('1','Rua São manoel','Santo amaro','3');
+
+	insert into Agencia(Num_agencia,Endereco_agen,Nome_agencias,Cod_banco) values('2','Rua São manoel','Socorro','1');
+
+	insert into Agencia(Num_agencia,Endereco_agen,Nome_agencias,Cod_banco) values('3','Rua São manoel','Guarapiranga','2')
+/*Conta*/
+	insert into Conta(Num_conta,Num_agencia,Tip_conta,Saldo) values('1','2','Salario','1500');
+	
+	insert into Conta(Num_conta,Num_agencia,Tip_conta,Saldo) values('2','3','Corrente','7500');
+
+	insert into Conta(Num_conta,Num_agencia,Tip_conta,Saldo) values('3','1','Poupanca','2405');
+/*CliPossui*/
+	insert into CliPossui(Cpf,Num_conta,Data_inicio) values('50127695893','2','2009/04/13);		
+	
+	insert into CliPossui(Cpf,Num_conta,Data_inicio) values('50127695894','3','2013/12/24);
+	
+	insert into CliPossui(Cpf,Num_conta,Data_inicio) values('50127695417','1','2011/11/04);
+		 
